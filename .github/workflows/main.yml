@@ -1,0 +1,19 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to greet with custom message
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: yarn
+      - name: Hello world action step
+        id: hello
+        uses: ./
+        with:
+          who-to-greet: 'Mona the Octocat'
+          greeting-message: 'hello from the other side'
+        # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
